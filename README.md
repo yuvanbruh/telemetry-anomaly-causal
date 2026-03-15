@@ -5,7 +5,32 @@ This project investigates anomaly detection in multivariate spacecraft telemetry
 An LSTM model is used to learn normal temporal behavior in telemetry sequences, while a linear state transition model captures deviations from expected system dynamics through innovation residuals.
 
 The goal is to detect abnormal system behavior in unlabeled telemetry streams and identify which sensors contribute most to anomalous transitions.
+## Pipeline Overview
 
+```mermaid
+flowchart TD
+
+A[Raw Telemetry Data] --> B[Preprocessing Pipeline]
+
+B --> C[Sliding Window Generation]
+
+C --> D[Classical Baselines]
+C --> E[LSTM Temporal Model]
+C --> F[Linear State Transition Model]
+
+D --> D1[Z-score]
+D --> D2[PCA Reconstruction]
+D --> D3[Isolation Forest]
+
+E --> G[LSTM Anomaly Score]
+
+F --> H[Residual Energy Detection]
+
+G --> I[Anomaly Detection]
+H --> I
+
+I --> J[Root Cause Attribution]
+```
 ## Dataset
 
 The experiments use the NASA spacecraft telemetry dataset (SMAP / MSL).
